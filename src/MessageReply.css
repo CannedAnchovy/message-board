@@ -1,0 +1,73 @@
+.message-reply {
+  position: relative;
+  margin-right: 20px;
+  padding: 10px 0 0 0;
+}
+
+.message-reply-input {
+  -webkit-appearance: none;
+  outline: none;
+  width: 98%;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #606060;
+
+  resize: none;
+
+  font-size: 1.2rem;
+  line-height: 30px;
+  color: #f2f2f2;
+  /*color: #adadad;*/
+  font-weight: 200;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+
+  transition-property: border-color;
+  transition-duration: 0.2s;
+}
+
+.message-reply-input:focus {
+  border-color: #adadad;
+}
+
+.message-reply-input::-webkit-input-placeholder {
+  transition: 0.2s
+}
+
+.message-reply-input:focus::-webkit-input-placeholder {
+  color: #adadad;
+}
+
+.message-reply-action {
+  width: 98%;
+  padding: 10px 0 0 10px;
+  overflow: auto;
+}
+
+.message-reply-action-button {
+  display: inline-block;
+  float: right;
+  width: 80px;
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #606060;
+  user-select: none;
+
+  font-size: 1.2rem;
+  color: #606060;
+  text-align: center;
+  cursor: pointer;
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.2s;
+}
+
+.message-reply-action-button:hover {
+  background-color: #adadad;
+  border-color: #adadad;
+  color: #232323;
+}
+
+.message-reply-action-button-focus {
+  color:#adadad;
+  border-color: #adadad;
+}
