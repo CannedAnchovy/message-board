@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './Message.css';
 
-const MessageReply = (props) => {
+export const MessageReply = (props) => {
   if(!props.reply) return <div></div>;
   return (
     <div className="message-reply">
