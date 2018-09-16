@@ -4,6 +4,7 @@ import MessageList from './MessageList';
 import MessageReply from './MessageReply';
 
 class MessageBoard extends Component {
+
   render() {
     return (
       <div className="message-board">

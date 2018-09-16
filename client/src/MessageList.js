@@ -15,7 +15,7 @@ const testMessage = {
     child: [{
       id: '1-1-1',
       author: 'pj',
-      time: new Date('2018/09/14').toString(),
+      time: new Date('2018/09/16 13:35:00').toString(),
       text: 'nice comment',
       child: []
     }]
