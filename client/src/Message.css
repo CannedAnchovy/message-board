@@ -1,7 +1,12 @@
 .message {
   border-left: 1px solid #606060;
-  padding-left: 15px;
+  padding-left: 20px;
+  /*transition: border 0.2s;*/
 }
+
+/*.message:hover {
+  border-left: 1px solid #adadad;
+}*/
 
 .message-info {
   padding: 5px 0 2.5px 0;
@@ -22,8 +27,8 @@
   padding: 2.5px 0 2.5px 0;
   font-size: 1.2rem;
   line-height: 30px;
-  /*word-wrap: break-word;
-  word-break: break-all;*/
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .message-action {
@@ -45,6 +50,11 @@
   color: #adadad;
 }
 
-.message-child {
-  padding: 20px 0 0 0;
+.message-action-link-show {
+  margin-left: 15px;
 }
+
+.message-child {
+  padding: 20px 0 10px 0;
+}
+
