@@ -95,8 +95,8 @@ class Message extends Component {
         <div className="message-content">{text}</div>
         <div className="message-action">
           <div className="message-action-link" onClick={this.handleToggleReply}>Reply</div>
-          <div className="message-action-link">Share</div>
-          <div className="message-action-link">Report</div>
+          <div className="message-action-link" onClick={() => {alert('You found a unimplemented feature~')}}>Share</div>
+          <div className="message-action-link" onClick={() => {alert('You found a unimplemented feature~')}}>Report</div>
           <div className="message-action-link" onClick={this.handleDelete}>Delete</div>
           <div className="message-action-link"></div>
         </div>
