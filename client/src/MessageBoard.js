@@ -12,7 +12,8 @@ class MessageBoard extends Component {
       messageList: []
     };
 
-    this.updateMessageList = this.updateMessageList.bind(this);
+    this.appendMessage = this.appendMessage.bind(this);
+    this.deleteMessage = this.deleteMessage.bind(this);
   }
 
   checkHttpStatus(response) {
@@ -38,7 +39,7 @@ class MessageBoard extends Component {
       })
   }
 
-  updateMessageList(index, message) {
+  appendMessage(index, message) {
     console.log('index: ' + index);
     console.log('message: ' + JSON.stringify(message));
     fetch('/api/comments', {
@@ -48,8 +49,41 @@ class MessageBoard extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        index: index,
-        message: message
+        action: 'append',
+        payload: {
+          index: index,
+          message: message
+        }
+      })
+    })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .then(this.checkHttpStatus)
+      .then(response => response.json())
+      .then(data => {
+        console.log('request succeed', data);
+        this.setState({messageList: data.messageList})
+      })
+      .catch(error => {
+        console.log('request failed', error);
+      })
+  }
+
+  deleteMessage(index) {
+    console.log('index: ' + index);
+    fetch('/api/comments', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: 'delete',
+        payload: {
+          index: index,
+        }
       })
     })
       .then((res) => {
@@ -78,8 +112,8 @@ class MessageBoard extends Component {
   render() {
     return (
       <div className="message-board">
-        <MessageReply noCancel={true} handleReply={(message) => {this.updateMessageList('', message)}}/>
-        <MessageList data={this.state.messageList} handleReply={this.updateMessageList.bind(this)}/>
+        <MessageReply noCancel={true} handleReply={(message) => {this.appendMessage('', message)}}/>
+        <MessageList data={this.state.messageList} methods={{handleReply: this.appendMessage, handleDelete: this.deleteMessage}}/>
       </div>
     );
   }

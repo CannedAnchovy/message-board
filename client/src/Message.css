@@ -1,6 +1,7 @@
 .message {
+  position: relative;
   border-left: 1px solid #606060;
-  padding-left: 20px;
+  padding-left: 15px;
   /*transition: border 0.2s;*/
 }
 
@@ -26,9 +27,11 @@
 .message-content {
   padding: 2.5px 0 2.5px 0;
   font-size: 1.2rem;
-  line-height: 30px;
+  line-height: 24px;
+  white-space: pre-line;
+  overflow: hidden;
   word-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .message-action {

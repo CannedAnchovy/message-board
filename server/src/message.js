@@ -27,6 +27,18 @@ class Message {
       this.child[indexArray[0]].appendMessage(indexArray.slice(1), message);
     }
   }
+
+  /**
+   * delete message specified by index array
+   * @param {array} indexArray array of index
+   */
+  deleteMessage(indexArray) {
+    if (indexArray.length === 1) {
+      delete this.child[indexArray[0]];
+    } else if (indexArray.length > 1) {
+      this.child[indexArray[0]].deleteMessage(indexArray.slice(1));
+    }
+  }
 }
 
 export default Message;

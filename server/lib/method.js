@@ -27,31 +27,50 @@ function sendFullData(res) {
 
 /**
  * modify MessageList by specified parameter
- * @param {string} type modify type ('append'/)
- * @param {string} index
+ * @param {string} action modify type ('append'/'delete')
+ * @param {object} payload data needed to perform the above action
  * @param {Message} message
  */
-function modifyMessageList(type, index, message) {
+function modifyMessageList(action, payload) {
   console.log('modify messageList...');
 
-  if (type === 'append') {
-    console.log('append message at ' + index);
-    console.log('message:');
-    console.log(message);
+  if (action === 'append') {
+    var index = payload.index,
+        message = payload.message;
+
 
     if (index === '') {
       var newMessage = new _message2.default(_data2.default.messageList.length.toString(), message);
       _data2.default.messageList.push(newMessage);
     } else {
-      var indexArray = index.split('-');
-      indexArray.forEach(function (index) {
-        return Number(index);
-      });
-      console.log(indexArray);
-      console.log(_data2.default.messageList[indexArray[0]]);
+      var indexArray = getIndexArray(index);
       _data2.default.messageList[indexArray[0]].appendMessage(indexArray.slice(1), message);
+    }
+  } else if (action === 'delete') {
+    var _index = payload.index;
+
+    var _indexArray = getIndexArray(_index);
+
+    if (_indexArray.length === 1) {
+      delete _data2.default.messageList[_indexArray[0]];
+    } else if (_indexArray.length > 1) {
+      _data2.default.messageList[_indexArray[0]].deleteMessage(_indexArray.slice(1));
     }
   }
 
-  console.log(_data2.default.messageList);
+  console.log('current messageList:');
+  console.log(JSON.stringify(_data2.default.messageList, '', 2));
+}
+
+/**
+ * parse the index string into index array
+ * @param {string} index '0-1-0-3' type of string indicating position
+ * @return {array} the index array
+ */
+function getIndexArray(index) {
+  var indexArray = index.split('-');
+  indexArray.forEach(function (index) {
+    return Number(index);
+  });
+  return indexArray;
 }

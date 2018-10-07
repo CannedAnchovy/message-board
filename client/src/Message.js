@@ -14,6 +14,7 @@ class Message extends Component {
     this.handleToggleReply = this.handleToggleReply.bind(this);
     this.handleCloseReply = this.handleCloseReply.bind(this);
     this.handleReply = this.handleReply.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleToggleReply() {
@@ -25,7 +26,11 @@ class Message extends Component {
   }
 
   handleReply(message) {
-    return this.props.handleReply(this.props.content.index, message);
+    return this.props.methods.handleReply(this.props.content.index, message);
+  }
+
+  handleDelete() {
+    return this.props.methods.handleDelete(this.props.content.index);
   }
 
   renderMessageReply() {
@@ -40,11 +45,13 @@ class Message extends Component {
   }
 
   renderMessageChild() {
-    if (this.props.content.child.length === 0) return <div></div>;
+    let child = this.props.content.child.filter((message) => message !== null);
+
+    if (child.length === 0) return <div></div>;
     return (
       <div className="message-child">
-        {this.props.content.child.map((message) => (
-          <Message key={message.index} content={message} handleReply={this.props.handleReply}/>
+        {child.map((message) => (
+          <Message key={message.index} content={message} methods={this.props.methods}/>
         ))}
       </div>
     )
@@ -89,8 +96,8 @@ class Message extends Component {
         <div className="message-action">
           <div className="message-action-link" onClick={this.handleToggleReply}>Reply</div>
           <div className="message-action-link">Share</div>
-          <div className="message-action-link">Save</div>
           <div className="message-action-link">Report</div>
+          <div className="message-action-link" onClick={this.handleDelete}>Delete</div>
           <div className="message-action-link"></div>
         </div>
         {this.renderMessageReply()}
@@ -108,7 +115,10 @@ Message.propTypes = {
     text: PropTypes.string.isRequired,
     child: PropTypes.array.isRequired
   }).isRequired,
-  handleReply: PropTypes.func.isRequired,
+  methods: PropTypes.exact({
+    handleReply: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
+  }).isRequired
 }
 
 export default Message;

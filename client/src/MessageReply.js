@@ -29,7 +29,7 @@ class MessageReply extends Component {
     this.props.handleReply({
       author: 'visitor',
       time: new Date(),
-      text: this.input.current.value.trim()
+      text: this.input.current.value.trim(),
     });
     if (this.cancel.current !== null) this.cancel.current.click();
     else this.input.current.value = '';

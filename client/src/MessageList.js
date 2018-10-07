@@ -4,12 +4,11 @@ import Message from './Message';
 import './MessageList.css';
 
 const MessageList = (props) => {
-  if (props.data === undefined) return <div className="message-list"></div>;
   return (
     <div className="message-list">
-      {props.data.map((message)=> (
+      {props.data.filter((message) => message !== null).map((message)=> (
         <div key={`${message.index}-message-container`}>
-          <Message key={message.index} content={message} handleReply={props.handleReply} />
+          <Message key={message.index} content={message} methods={props.methods} />
           <div className="message-list-br"></div>
         </div>
       ))}
@@ -18,7 +17,11 @@ const MessageList = (props) => {
 }
 
 MessageList.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  methods: PropTypes.exact({
+    handleReply: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
+  }).isRequired
 }
 
 export default MessageList;

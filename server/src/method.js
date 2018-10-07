@@ -12,29 +12,46 @@ export function sendFullData(res) {
 
 /**
  * modify MessageList by specified parameter
- * @param {string} type modify type ('append'/)
- * @param {string} index
+ * @param {string} action modify type ('append'/'delete')
+ * @param {object} payload data needed to perform the above action
  * @param {Message} message
  */
-export function modifyMessageList(type, index, message) {
+export function modifyMessageList(action, payload) {
   console.log('modify messageList...');
 
-  if (type === 'append') {
-    console.log('append message at ' + index);
-    console.log('message:');
-    console.log(message);
+  if (action === 'append') {
+    let {index, message} = payload;
 
     if (index === '') {
       let newMessage = new Message(data.messageList.length.toString(), message);
       data.messageList.push(newMessage);
     } else {
-      let indexArray = index.split('-');
-      indexArray.forEach((index) => Number(index));
-      console.log(indexArray);
-      console.log(data.messageList[indexArray[0]]);
+      let indexArray = getIndexArray(index);
       data.messageList[indexArray[0]].appendMessage(indexArray.slice(1), message);
+    }
+  } else if (action === 'delete') {
+    let {index} = payload;
+    let indexArray = getIndexArray(index);
+
+    if (indexArray.length === 1) {
+      delete data.messageList[indexArray[0]];
+    } else if (indexArray.length > 1) {
+      data.messageList[indexArray[0]].deleteMessage(indexArray.slice(1));
     }
   }
 
-  console.log(data.messageList);
+  console.log('current messageList:');
+  console.log(JSON.stringify(data.messageList, '', 2));
 }
+
+/**
+ * parse the index string into index array
+ * @param {string} index '0-1-0-3' type of string indicating position
+ * @return {array} the index array
+ */
+function getIndexArray(index) {
+  let indexArray = index.split('-');
+  indexArray.forEach((index) => Number(index));
+  return indexArray;
+}
+

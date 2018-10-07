@@ -1,5 +1,6 @@
 import expressApp from './route';
+const PORT = process.env.PORT || 3001;
 
-expressApp.listen(3001, () => {
-  console.log('Message-board-backend is listening on port 3001!');
+expressApp.listen(PORT, () => {
+  console.log(`Message-board-backend is listening on port ${PORT}!`);
 });
